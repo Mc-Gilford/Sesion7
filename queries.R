@@ -4,8 +4,8 @@
 # lectura de la base de datos en RStudio, si previamente los tenías instalados 
 # omite la instalación, recuerda que solo necesitas realizarla una vez.
 
-#install.packages("DBI")
-#install.packages("RMySQL")
+install.packages("DBI")
+install.packages("RMySQL")
 
 library(DBI)
 library(RMySQL)
@@ -53,7 +53,7 @@ pop.3
 
 # Incluso podemos hacer unos de otros comandos de busqueda aplicando la 
 # libreria dplyr
-
+install.packages("dyplr")
 library(dplyr)
 pop50.mex <-  DataDB %>% filter(CountryCode == "MEX" ,  Population > 50000)   # Ciudades del país de México con más de 50,000 habitantes
 
