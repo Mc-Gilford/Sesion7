@@ -30,12 +30,12 @@ dbListTables(MyDataBase)
 # Ahora si se quieren desplegar los campos o variables que contiene la tabla 
 # City se hará lo siguiente
 
-dbListFields(MyDataBase, 'City')
+dbListFields(MyDataBase, 'CountryLanguage')
 
 # Para realizar una consulta tipo MySQL sobre la tabla seleccionada haremos lo 
 # siguiente
 
-DataDB <- dbGetQuery(MyDataBase, "select * from City")
+DataDB <- dbGetQuery(MyDataBase, "select * from CountryLanguage")
 
 DataDB
 # Observemos que el objeto DataDB es un data frame, por lo tanto ya es un objeto 
@@ -45,7 +45,7 @@ class(DataDB)
 head(DataDB)
 
 
-pop.mean <- mean(DataDB$Population)  # Media a la variable de población
+pop.mean <- mean(DataDB$Percentage)  # Media a la variable de población
 pop.mean 
 
 pop.3 <- pop.mean *3   # Operaciones aritméticas
@@ -55,10 +55,20 @@ pop.3
 # libreria dplyr
 install.packages("dyplr")
 library(dplyr)
-pop50.mex <-  DataDB %>% filter(CountryCode == "MEX" ,  Population > 50000)   # Ciudades del país de México con más de 50,000 habitantes
+pop50.mex <-  DataDB %>% filter(Language == "Spanish")   # Ciudades del país de México con más de 50,000 habitantes
 
 head(pop50.mex)
+class(pop50.mex)
+
+install.packages("ggplot2")
+
+library(ggplot2)
+pop50.mex %>% ggplot(aes( x = CountryCode, y=Percentage, fill = IsOfficial )) + 
+  geom_bin2d() +
+  coord_flip()
 
 unique(DataDB$CountryCode)   # Países que contiene la BDD
+
+
 
 dbDisconnect(MyDataBase)
